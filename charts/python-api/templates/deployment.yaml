@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: { { include "python-poc-api-helm.fullname" . } }
+  name: {{ include "python-poc-api-helm.fullname" . }}
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8000"
     prometheus.io/path: "/metrics"
 spec:
-  replicas: { { .Values.replicaCount } }
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: { { include "python-poc-api-helm.name" . } }
+      app: {{ include "python-poc-api-helm.name" . }}
   template:
     metadata:
       labels:
-        app: { { include "python-poc-api-helm.name" . } }
+        app: {{ include "python-poc-api-helm.name" . }}
     spec:
       containers:
         - name: python-poc-api-helm
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: { { .Values.image.pullPolicy } }
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
-          livenessProbe: { { - toYaml .Values.livenessProbe | nindent 12 } }
-          readinessProbe: { { - toYaml .Values.readinessProbe | nindent 12 } }
-          resources: { { - toYaml .Values.resources | nindent 12 } }
+          livenessProbe: {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe: {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}

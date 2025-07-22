@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: { { include "python-poc-api-helm.fullname" . } }
+  name: {{ include "python-poc-api-helm.fullname" . | quote }}
 spec:
-  type: { { .Values.service.type } }
+  type: {{ .Values.service.type }}
   selector:
-    app: { { include "python-poc-api-helm.name" . } }
+    app: {{ include "python-poc-api-helm.name" . | quote }}
   ports:
-    - port: { { .Values.service.port } }
+    - port: {{ .Values.service.port }}
       targetPort: 8000
