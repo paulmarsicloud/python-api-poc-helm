@@ -32,6 +32,9 @@ helm dependency update
 cd ../..
 helm install python-poc-api-helm charts/python-api --create-namespace -n python-api
 
+wait for deployments and services to create ~2mins approx:
+kubectl get pods
+
 minikube service python-poc-api-helm -n python-api --url
 
 # Go to your browser with that url and
