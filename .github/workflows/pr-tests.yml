@@ -25,7 +25,7 @@ jobs:
         run: poetry install --no-root
 
       - name: Build Docker image
-        run: docker build .
+        run: DOCKER_BUILDKIT=1 docker build .
 
       - name: Run tests
         run: poetry run pytest
